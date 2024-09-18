@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="template_purchase_summary">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+					<div class="page">
+						<div class="oe_structure"/>
+			            <div class = "row" style = "padding: 10px;">
+			            		<div class = "text-center"><h2>Purchase Summary</h2></div>
+			            </div>
+						<div class = "row" style = "padding: 10px;">
+							<table class = "table ">
+								<thead class="thead-dark">
+									<th>Order Date</th>
+									<th>Supplier</th>
+									<th>Grade</th>
+									<th>PO No.</th>
+									<th>Ordered Qty</th>
+									<th>Rcvd Qty</th>
+									<th>Balance</th>
+									<th>Rate</th>
+								</thead>
+								<tbody>
+									<t t-foreach="docs" t-as="doc">
+										<tr>
+											<td><span t-field="doc.date_order"/></td>
+											<td><span t-field="doc.partner_id"/></td>
+											<td><span t-field="doc.grade_id"/></td>
+											<td><span t-field="doc.name"/></td>
+											<td><span t-field="doc.material_ordered"/></td>
+											<td><span t-field="doc.material_received"/></td>
+											<td><span t-field="doc.balance"/></td>
+											<td><span t-field="doc.net_rate"/></td>
+										</tr>
+									</t>
+								</tbody>
+							</table>
+						</div>
+						<t t-foreach="docs" t-as="doc">
+
+
+						</t>
+					</div>
+            </t>
+        </t>
+    </template>
+</odoo>

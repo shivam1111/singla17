@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    Mill Order Form View-->
+    <record id="view_mill_order_form" model="ir.ui.view">
+        <field name="name">mill.order.form</field>
+        <field name="model">mill.order</field>
+        <field name="arch" type="xml">
+            <form string="Mill Order" class="o_sale_order">
+                <header>
+                    <field name="state" widget="statusbar"  options="{'clickable':1}" statusbar_visible="draft,done,cancel"/>
+                </header>
+                <sheet>
+                    <field name = "id" invisible = "1" />
+                   <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                name="attachment_tree_view"
+                                type="object"
+                                icon="fa-file-text-o">
+                            <field string="Documents" name="doc_count" widget="statinfo"/>
+                        </button>
+                   </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name = "partner_id" />
+                            <field name = "rate" widget = "monetary"/>
+                            <field name = "extra_rate" widget = "monetary"/>
+                            <field name = "rolling" widget = "monetary"/>
+                            <field name = "order_qty" />
+                            <field name = "inclusive_loading" />
+                        </group>
+                        <group>
+                            <field name = "booking_date" options="{'format':'DD/MM/YYYY'}"/>
+                            <field name = "delivery_date" />
+                            <field name = "size"/>
+                            <field name = "material_feature_ids" options="{'no_create_edit': True}" widget="many2many_tags" />
+                            <field name = "net_rate" widget = "monetary"/>
+                            <field name = "completed_qty" />
+                            <field name = "balance" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string = "Order">
+                            <div class="oe_title"><h2>Order Lines</h2></div>
+                            <field name = "line_ids" nolabel = "1" widget="section_and_note_one2many"
+                                   mode="tree" context = "{'default_rate':net_rate,'default_display_type': False}">
+                                <tree string = "Size Line"  decoration-danger = "state == 'cancel'" decoration-muted="state == 'done'" decoration-bf="state=='manufactured'"
+                                      decoration-info="state == 'draft'"  editable = "bottom"  >
+                                    <control>
+                                             <create
+                                                string="Add a Line"/>
+                                             <create name="add_section_control"
+                                                string="Add a section"
+                                                context="{'default_display_type':
+                                                       'line_section'}"/>
+                                             <create
+                                                string="Add a note"
+                                                context="{'default_display_type':
+                                                      'line_note'}"/>
+                                    </control>
+                                    <field name = "sequence" widget = "handle" />
+                                    <field name = "name" readonly = "not display_type"/>
+                                    <field name = "size" required ="not display_type" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}" />
+                                    <field name="display_type" column_invisible="1"/>
+                                    <field name = "order_qty" sum = "Total Ordered Qty" />
+                                    <field name = "grade_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}" />
+                                    <field name = "cut_length" />
+                                    <field name = "ingot_size" />
+                                    <field name = "corner_id" />
+                                    <field name = "state" widget="badge" />
+                                    <field name = "booking_date"/>
+                                    <field name = "rate" context = "{'default_rate':parent.rolling}" />
+                                    <field name = "remarks" />
+                                </tree>
+                            </field>
+                            <div class="oe_title"><h2>Completed Order Lines</h2></div>
+                            <field name = "line_completed_ids" nolabel = "1"  invisible = "id == False">
+                                <tree string = "Completed Size Line"   editable = "bottom">
+                                    <field name = "name" readonly = "1"/>
+                                    <field name = "line_id" domain = "[('order_id','=',parent.id),('display_type','=',False)]" create="False" delete="False" edit = "False" />
+                                    <field name = "size_id"  />
+                                    <field name = "complete_date"/>
+                                    <field name = "completed_qty" sum = "Total Qty" />
+                                    <field name = "invoice" />
+                                    <field name = "remarks" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Mill Order Tree View -->
+    <record id="view_mill_order_tree" model="ir.ui.view">
+        <field name="name">mill.order.tree</field>
+        <field name="model">mill.order</field>
+        <field name="arch" type="xml">
+            <tree string="Mill Order" class="o_sale_order" decoration-danger = "state == 'cancel'" decoration-muted="state == 'done'"  decoration-info="state == 'draft'"  >
+                <field name = "state" column_invisible = "1" />
+                <field name = "booking_date" />
+                <field name = "size"/>
+                <field name = "order_qty" sum="Total Qty" />
+                <field name = "completed_qty" sum = "Total Completed" />
+                <field name = "balance" sum = "Total Balance Qty" />
+                <field name = "partner_id" />
+                <field name = "net_rate"  />
+                <field name = "note" />
+                <button name = "set_state_done" class="oe_highlight" type = "object" string = "Done" invisible="state!='draft'" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Mill Order Filter View -->
+        <record id="view_mill_orders_filter" model="ir.ui.view">
+            <field name="name">mill.order.list.select</field>
+            <field name="model">mill.order</field>
+            <field name="arch" type="xml">
+                <search string="Search Orders">
+                    <field name="size" string="Size" filter_domain="[('size','ilike',self)]"/>
+                    <field name="partner_id" operator="child_of"/>
+                    <filter string="Draft" domain="[('state','=','draft')]" name="draft"/>
+                    <filter string="Done" domain="[('state','=','done')]" name="done"/>
+                    <group expand="0" string="Group By">
+                        <filter  string="Customer" name = "group_partner_id" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter  string="Status" name = "group_state" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+    <record id="action_mill_orders" model="ir.actions.act_window">
+        <field name="name"> Sale Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mill.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_mill_orders_filter"/>
+        <field name="context">{'search_default_draft':1,'search_default_group_partner_id':1}</field>
+    </record>
+
+   <menuitem
+           id= "mill_order_management_sub_submenu"
+           parent= "order_management_menu"
+           sequence= "1"
+           action = "action_mill_orders"
+            />
+<!--    material.grade  Form View-->
+    <record id="view_material_grade_tree" model="ir.ui.view">
+		    <field name="name">material.grade.tree</field>
+		    <field name="model">material.grade</field>
+		    <field name="arch" type="xml">
+		        <tree string="Material Grade" editable="bottom" >
+					<field name = "name" />
+					<field name = "color_id" />
+		        </tree>
+	        </field>
+        </record>
+
+    <record id="action_material_grade" model="ir.actions.act_window">
+        <field name="name">Material Grades</field>
+        <field name="res_model">material.grade</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+   <menuitem
+           id= "material_grade_management_sub_submenu"
+           parent= "mill_order.order_management_menu"
+           sequence= "2"
+           action = "action_material_grade"
+            />
+<!--    size.size Views-->
+    <record id="view_mill_size_size_tree" model="ir.ui.view">
+        <field name="name">mill.size.size.tree</field>
+        <field name="model">size.size</field>
+        <field name="arch" type="xml">
+            <tree string="Sizes"  editable = "bottom" >
+                <field name = "name" />
+                <field name = "corner_id" />
+                <field name = "remarks" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_size_size_form" model="ir.ui.view">
+        <field name="name">size.size.form</field>
+        <field name="model">size.size</field>
+        <field name="arch" type="xml">
+                <form string="Mill Sizes">
+                    <group >
+                        <group>
+                                <field name = "name" />
+                        </group>
+                        <group>
+                            <field name = "corner_id" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string = "Notes">
+                            <field name = "remarks" nolabel = "1" />
+                        </page>
+                    </notebook>
+                </form>
+        </field>
+    </record>
+
+    <record id="action_size_size" model="ir.actions.act_window">
+        <field name="name">Sizes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">size.size</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+   <menuitem
+       id= "size_size_management_sub_submenu"
+       parent= "order_management_menu"
+       sequence= "3"
+       action = "action_size_size"
+        />
+<!--    corner.type views-->
+		<record id="view_corner_type_tree" model="ir.ui.view">
+		    <field name="name">corner.type.tree</field>
+		    <field name="model">corner.type</field>
+		    <field name="arch" type="xml">
+		        <tree string="Corner Type" editable="top">
+					<field name = "name" />
+		        </tree>
+	        </field>
+        </record>
+        <record id="action_corner_type" model="ir.actions.act_window">
+            <field name="name">Corner Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">corner.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+       <menuitem
+           id= "corner_type_management_sub_submenu"
+           parent= "mill_order.order_management_menu"
+           sequence= "4"
+           action = "action_corner_type"
+            />
+
+<!--    ingot.size views-->
+		<record id="view_ingot_size_tree" model="ir.ui.view">
+		    <field name="name">ingot.size.tree</field>
+		    <field name="model">ingot.size</field>
+		    <field name="arch" type="xml">
+		        <tree string="Ingot Size" editable="top">
+					<field name = "name" />
+		        </tree>
+	        </field>
+        </record>
+        <record id="action_ingot_size" model="ir.actions.act_window">
+            <field name="name">Ingot Size</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ingot.size</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+       <menuitem
+           id= "corner_type_management_sub_submenu"
+           parent= "mill_order.order_management_menu"
+           sequence= "4"
+           action = "action_ingot_size"
+            />
+</odoo>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mill_purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.form</field>
+        <field name="model">mill.purchase.order</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Order" class="o_sale_order">
+                <header>
+                    <field name="state" widget="statusbar"  options="{'clickable':1}" statusbar_visible="order_placed,done,cancel"/>
+                </header>
+                <sheet>
+                    <field name = "currency_id" invisible="1" />
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name = "partner_id"/>
+                            <field name = "date_order"/>
+                            <field name = "heats"/>
+                            <field name = "material_ordered"/>
+                            <field name = "grade_id"/>
+                            <field name = "size" />
+
+                        </group>
+                        <group>
+                            <field name = "broker_id" widget="selection" />
+                            <field name = "basic_rate"/>
+                            <field name = "extra_rate" />
+                            <field name = "net_rate" />
+                            <field name = "material_feature_ids" options="{'no_create_edit': True}" widget="many2many_tags" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string = "Stock">
+                            <field name = "stock_line_ids" nolabel = "1"  context="{'default_partner_id':partner_id,'default_grade_id':grade_id,'default_type':'purchase'}">
+		    				<tree string = "Purchase Stock Line" editable = "1">
+		    					<field name = "name" readonly ="1" />
+		    					<field name = "date"  />
+		    					<field name = "partner_id" column_invisible="1"  />
+		    					<field name = "grade_id" />
+		    					<field name = "truck_no" />
+								<field name = "bill_no"/>
+		    					<field name = "type" column_invisible = "1" />
+		    					<field name = "qty" />
+		    				</tree>
+                            </field>
+                        </page>
+                    </notebook>
+    				<group class="oe_subtotal_footer oe_right" colspan="4">
+                        <field name = "material_received"/>
+    					<field name="balance" />
+    				</group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+<!--    purchase.order Tree View-->
+    <record id="view_purchase_order_tree" model="ir.ui.view">
+        <field name="name">purchase.order.tree</field>
+        <field name="model">mill.purchase.order</field>
+        <field name="arch" type="xml">
+            <tree string = "Purchase Order" decoration-muted="state == 'done'" decoration-primary="state == 'order_placed'" decoration-warning="state == 'cancel'">
+                    <field name = "state" column_invisible="1"/>
+       				<field name = "name" />
+       				<field name = "partner_id" />
+                    <field name = "currency_id" column_invisible="1" />
+       				<field name = "date_order"/>
+       				<field name = "material_ordered" sum ="Total Ordered" />
+       				<field name = "material_received" sum ="Total Completed" />
+       				<field name = "grade_id" />
+       				<field name = "size" />
+       				<field name = "broker_id"/>
+       				<field name = "net_rate" avg="Average Rates"  widget="monetary" options="{'currency_field':'currency_id'}"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Mill Purchase Order Filter View -->
+        <record id="view_mill_purchase_orders_filter" model="ir.ui.view">
+            <field name="name">mill.purchase.order.filter</field>
+            <field name="model">mill.purchase.order</field>
+            <field name="arch" type="xml">
+                <search string="Search Purchase Orders">
+                    <field name="name" string="Name" filter_domain="[('name','ilike',self)]"/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="grade_id" />
+                    <filter string="Draft" domain="[('state','=','order_placed')]" name="draft"/>
+                    <filter string="Done" domain="[('state','=','done')]" name="done"/>
+                    <filter string="Cancel" domain="[('state','=','cancel')]" name="cancel"/>
+                    <group expand="0" string="Group By">
+                        <filter  string="Suppliers" name = "group_partner_id" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter  string="Status" name = "group_state" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+    <record id="action_mill_purchase_orders" model="ir.actions.act_window">
+        <field name="name">Purchase Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mill.purchase.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_mill_purchase_orders_filter"/>
+        <field name="context">{'search_default_draft':1,'search_default_group_partner_id':1}</field>
+
+    </record>
+
+
+    <!-- Purchase Order Management Base Menu -->
+    <menuitem id = "menu_purchase_management"
+              name = "Purchase Management"
+              parent = "mill_order.mill_menu_root"
+              sequence = "100" />
+
+    <menuitem
+           id= "submenu_mill_purchase_order"
+           parent= "menu_purchase_management"
+           sequence= "1"
+           action = "action_mill_purchase_orders"
+            />
+</odoo>

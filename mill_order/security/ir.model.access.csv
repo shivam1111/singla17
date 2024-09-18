@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_material_grade,material_greade,mill_order.model_material_grade,base.group_user,1,1,1,1
+access_size_size,size_size,mill_order.model_size_size,base.group_user,1,1,1,1
+access_corner_type,corner_type,mill_order.model_corner_type,base.group_user,1,1,1,1
+access_mill_order,mill_order,mill_order.model_mill_order,base.group_user,1,1,1,1
+access_mill_order_size_line,mill_order_size_line,mill_order.model_mill_order_size_line,base.group_user,1,1,1,1
+access_mill_order_material_feature,mill_order_material_feature,mill_order.model_material_feature,base.group_user,1,1,1,1
+access_mill_order_size_line_completed,mill_order_size_line_completed,mill_order.model_mill_order_size_line_completed,base.group_user,1,1,1,1
+access_mill_order_material_size,material_size,mill_order.model_ingot_size,base.group_user,1,1,1,1
+access_mill_order_color_color,color_color,mill_order.model_color_color,base.group_user,1,1,1,1

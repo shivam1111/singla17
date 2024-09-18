@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <!-- Define a new view to extend the res.partner form view -->
+   <record id="view_brokerage_report" model="ir.ui.view">
+       <field name="name">view.brokerage.report</field>
+       <field name="model">brokerage.report</field>
+       <field name="arch" type="xml">
+            <form string = "Brokerage Report">
+                <group>
+                    <field name = "partner_id"/>
+                    <field name = "from_date"/>
+                    <field name = "to_date" />
+                </group>
+                <group>
+                    <field name = "show_basic_price" />
+                </group>
+                <footer>
+                   <button name="print_report" string="Print" type="object"/>
+                   <button name="cancel" string="Cancel" special="cancel"/>
+               </footer>
+            </form>
+       </field>
+   </record>
+</odoo>

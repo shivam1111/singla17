@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="action_brokerage_report" model="ir.actions.report">
+       <field name="name">Brokerage Report</field>
+       <field name="model">brokerage.report</field>
+       <field name="report_type">qweb-html</field>
+       <field name="report_name">mill_purchase_order.template_brokerage_report</field>
+       <field name="report_file">mill_purchase_order.brokerage_report</field>
+       <field name="print_report_name">'Brokerage - %s' % (object.partner_id.name)</field>
+       <field name="binding_model_id" eval="False"/>
+       <field name="binding_type">report</field>
+   </record>
+
+   <record id="action_purchase_summary" model="ir.actions.report">
+       <field name="name">Purchase Summary</field>
+       <field name="model">mill.purchase.order</field>
+       <field name="report_type">qweb-html</field>
+       <field name="report_name">mill_purchase_order.template_purchase_summary</field>
+       <field name="report_file">mill_purchase_order.purchase_summary</field>
+       <field name="print_report_name">"Purchase Summary"</field>
+       <field name="binding_model_id" ref="mill_purchase_order.model_mill_purchase_order"/>
+       <field name="binding_type">report</field>
+   </record>
+
+   <record id="action_heat_report" model="ir.actions.report">
+       <field name="name">Heat Report</field>
+       <field name="model">heat.heat</field>
+       <field name="report_type">qweb-html</field>
+       <field name="report_name">mill_purchase_order.template_heat_report</field>
+       <field name="report_file">mill_purchase_order.heat_report</field>
+       <field name="print_report_name">''+object.name </field>
+       <field name="binding_model_id" ref="mill_purchase_order.model_heat_heat"/>
+       <field name="binding_type">report</field>
+   </record>
+
+
+</odoo>

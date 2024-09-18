@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="seq_mill_order" model="ir.sequence">
+        <field name="name">Mill Order</field>
+        <field name="code">mill.order</field>
+        <field name="prefix">M</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_mill_order_size_line" model="ir.sequence">
+        <field name="name">Mill Order Size Line</field>
+        <field name="code">mill.order.size.line</field>
+        <field name="prefix">MOL</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

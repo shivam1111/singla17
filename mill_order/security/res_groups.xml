@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="group_purchase" model="res.groups">
+        <field name="name">Mill Purchase</field>
+    </record>
+
+    <record id="group_dispatch" model="res.groups">
+        <field name="name">Mill Dispatch</field>
+    </record>
+
+    <record id="group_production" model="res.groups">
+        <field name="name">Mill Production</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="mill_menu_root"
+        name="Mill Management"
+
+        sequence="30"/>
+
+    <menuitem id = "order_management_menu"
+            parent = "mill_menu_root"
+            name = "Order Management"
+            sequence="10" />
+</odoo>

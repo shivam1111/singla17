@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="template_brokerage_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class = "page">
+                    <div class="oe_structure"/>
+                    <div style = "text-align:center;"><h2><t t-esc="broker_name"/></h2></div>
+                    <t t-set="total_qty" t-value="0" />
+                            <table class = "table  table-condensed ">
+                                <thead>
+                                    <th>Order Date</th>
+                                    <th>Rcvd Date</th>
+                                    <th>Invoice Number</th>
+                                    <th>PO No.</th>
+                                    <th>Furnace</th>
+                                    <th>Grade</th>
+                                    <t t-if="print_basic_rate">
+                                        <th>Basic Rate</th>
+                                    </t>
+                                    <th>Qty</th>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="docs" t-as="l">
+                                        <tr>
+                                            <td><span t-field="l.purchase_id.date_order" t-options='{"widget": "date","format": "dd-MM-yyyy"}' /></td>
+                                            <td><span t-field="l.date" t-options='{"widget": "date","format": "dd-MM-yyyy"}' /></td>
+                                            <td><span t-field="l.bill_no" /></td>
+                                            <td><span t-field="l.purchase_id.name" /></td>
+                                            <td><span t-field="l.partner_id.name" /></td>
+                                            <td><span t-field="l.grade_id.name" /></td>
+                                            <t t-if="print_basic_rate and l.purchase_id">
+                                                <td><span t-field="l.purchase_id.basic_rate" /></td>
+                                            </t>
+                                            <td><span t-field="l.qty" /></td>
+                                        </tr>
+                                        <t t-set="total_qty" t-value="total_qty+l.qty" />
+                                        <t t-if="l_last">
+                                            <tr class="border-black">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <t t-if="print_basic_rate and l.purchase_id">
+                                                    <td></td>
+                                                </t>
+                                                <td><span t-esc="total_qty" /></td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                </div>
+
+            </t>
+        </t>
+   </template>
+</odoo>

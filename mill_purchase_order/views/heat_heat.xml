@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_heat_heat_form" model="ir.ui.view">
+        <field name="name">heat.heat.form</field>
+        <field name="model">heat.heat</field>
+        <field name="arch" type="xml">
+            <form string="Heats" class="o_sale_order">
+                <header>
+                    <field name="state" widget="statusbar"  options="{'clickable':1}" statusbar_visible="ok,rejected,non_confirmance"/>
+                </header>
+                <sheet>
+                    <div class="oe_title oe_left">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name = "partner_id" readonly="context.get('stock_line',False)"/>
+                            <field name = "furnace_heat_no" />
+                            <field name = "supervisor_id" />
+                            <field name = "truck_no"/>
+                            <field name = "roll_size" widget="many2many_tags"/>
+                            <field name = "print_supplier" />
+                        </group>
+                        <group>
+                            <field name = "date"/>
+                            <field name = "grade_id" context = "{'onchange':True}"/>
+                            <field name = "size" />
+                            <field name = "stock_line_id"/>
+                            <field name = "purchase_id" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string = "Chemical Compositions">
+                            <field name = "line_ids" nolabel="1">
+                                <tree string = "Composition" editable="top">
+                                    <field name = "sequence" widget="handle"/>
+                                    <field name = "element_id"/>
+                                    <field name = "min_val"/>
+                                    <field name = "max_val"/>
+                                    <field name = "furnace_val"/>
+                                    <field name = "actual_val"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string = "Inspection">
+                            <group col="6">
+                                <group>
+                                    <field name = "xrf_tested"/>
+                                </group>
+                                <group>
+                                    <field name = "surface_inspection"/>
+                                </group>
+                                <group>
+                                    <field name = "grinding"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <field name = "remarks" nolabel="1" placeholder="Remarks" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+        <record id="view_heat_heat_tree" model="ir.ui.view">
+            <field name="name">heat.heat.tree</field>
+            <field name="model">heat.heat</field>
+            <field name="arch" type="xml">
+                <tree string = "Heats" decoration-success="state=='ok'" decoration-danger="state=='rejected'" decoration-warning="state=='non_confirmance'">
+                    <field name ="state" column_invisible="1"/>
+                    <field name = "date"/>
+                    <field name ="name"/>
+                    <field name = "partner_id"/>
+                    <field name ="furnace_heat_no"/>
+                    <field name = "grade_id"/>
+                    <field name = "size"/>
+                    <field name = "roll_size"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_heat_heat_filter" model="ir.ui.view">
+            <field name="name">heat.heat.search</field>
+            <field name="model">heat.heat</field>
+            <field name="arch" type="xml">
+                <search string="Search Heats">
+                    <field name="name" string="Name" filter_domain="[('name','ilike',self)]"/>
+                    <field name="furnace_heat_no" string = "Furnace Heat No." filter_domain="[('furnace_heat_no','ilike',self)]"/>
+                    <field name="grade_id" string = "Grade" />
+                    <field name = "purchase_id" string = "Purchase Order" />
+                    <field name = "partner_id" string = "Partner" operator="child_of"/>
+                    <filter string="Ok" domain="[('state','=','ok')]" name="ok" />
+                    <filter string="Non Confirmance" domain="[('state','=','non_confirmance')]" name="non_confirmance"/>
+                    <filter string="Rejected" domain="[('state','=','rejected')]" name="rejected"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_heat_heat_views" model="ir.actions.act_window">
+            <field name="name">Heats</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">heat.heat</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_heat_heat_filter"/>
+            <field name = "context">{}</field>
+        </record>
+
+    <menuitem
+           id= "submenu_heat_heat"
+           parent= "menu_stock_management"
+           sequence= "1"
+           action = "action_heat_heat_views"
+            />
+
+    <!-- Chemical Element -->
+    <record id="view_chemical_element_tree" model="ir.ui.view">
+        <field name="name">chemical.element.tree</field>
+        <field name="model">chemical.element</field>
+        <field name="arch" type="xml">
+            <tree string = "Chemical Elements" editable="top">
+                <field name = "code"/>
+                <field name = "name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_chemical_element" model="ir.actions.act_window">
+        <field name="name">Chemical Element</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">chemical.element</field>
+        <field name="view_mode">tree</field>
+        <field name = "context">{}</field>
+    </record>
+
+    <menuitem
+           id= "submenu_chemical_element"
+           parent= "menu_stock_management"
+           sequence= "1"
+           action = "action_chemical_element"
+            />
+
+
+</odoo>

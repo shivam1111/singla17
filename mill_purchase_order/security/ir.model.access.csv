@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mill_purchase_order,mill_purchase_order,mill_purchase_order.model_mill_purchase_order,base.group_user,1,1,1,1
+access_stock_line,stock_line,mill_purchase_order.model_stock_line,base.group_user,1,1,1,1
+access_chemical_element,chemical_element,mill_purchase_order.model_chemical_element,base.group_user,1,1,1,1
+access_composition_line,composition_line,mill_purchase_order.model_composition_line,base.group_user,1,1,1,1
+access_heat_heat,heat_heat,mill_purchase_order.model_heat_heat,base.group_user,1,1,1,1
+access_brokerage_report,brokerage_report,mill_purchase_order.model_brokerage_report,base.group_user,1,1,1,1

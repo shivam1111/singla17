@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id = "data_corner_unknown" model = "corner.type">
+            <field name = "name">Unknown</field>
+        </record>
+        <record id = "data_size_unknown" model = "size.size">
+            <field name="name">Size Unknown</field>
+            <field name = "corner_id" ref="mill_order.data_corner_unknown"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_inherit_material_grade_tree" model="ir.ui.view">
+	    <field name="name">material.grade.stock.tree</field>
+	    <field name="model">material.grade</field>
+	    <field name="inherit_id" ref="mill_order.view_material_grade_tree"/>
+	    <field name="arch" type="xml">
+			<xpath expr = "/tree" position = "attributes">
+				<attribute name="editable"/>
+			</xpath>
+	    		<xpath expr = "/tree" position = "inside">
+	    			<field name = "qty" />
+	    		</xpath>
+	    </field>
+    </record>
+
+	<record id="view_material_grade_form" model="ir.ui.view">
+	    <field name="name">material.grade.stock.form</field>
+	    <field name="model">material.grade</field>
+	    <field name="arch" type="xml">
+			<form string = "Grade">
+				<sheet>
+					<group>
+						<group>
+							<field name = "name" />
+							<field name = "qty" />
+						</group>
+						<group>
+							<field name = "print_name" />
+							<field name = "color_id" />
+							<field name = "active" />
+						</group>
+					</group>
+					<notebook>
+						<page string = "Stock">
+								<field name = "stock_line_ids" nolabel = "1"  context = "{'default_type':'adjustment'}" >
+									<tree string = "Stock" editable = "top" decoration-danger = "type == 'production'" decoration-success = "type == 'purchase'" decoration-info = "type == 'adjustment'">
+										<field name = "name" readonly="1"/>
+										<field name = "date"/>
+										<field name = "partner_id" />
+										<field name = "purchase_id" readonly="1" />
+										<field name = "qty" sum = "Total Available Qty"/>
+										<field name = "remarks" />
+									<field name = "type" />
+									</tree>
+								</field>
+						</page>
+						<page string = "Composition">
+							<field name = "line_ids" nolabel = "1" >
+								<tree string = "Composition Line" editable = "1">
+									<field name = "sequence" widget="handle"/>
+									<field name = "element_id" />
+									<field name = "min_val" />
+									<field name = "max_val"/>
+									<field name = "actual_val" />
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+	    </field>
+	</record>
+</odoo>
