@@ -27,7 +27,7 @@
                             <field name = "date"/>
                             <field name = "grade_id" context = "{'onchange':True}"/>
                             <field name = "size" />
-                            <field name = "stock_line_id"/>
+                            <field name = "stock_line_id" readonly="context.get('stock_line',False)"/>
                             <field name = "purchase_id" />
                         </group>
                     </group>
