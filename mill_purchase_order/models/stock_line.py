@@ -7,6 +7,8 @@ class StockLine(models.Model):
     _description = "Stock Line"
     _order = "date desc"
 
+
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:

@@ -27,6 +27,9 @@ class Heat(models.Model):
     _name = 'heat.heat'
     _description = "Heats"
 
+    def print_heat_report(self):
+        return self.env.ref('mill_purchase_order.action_heat_report').report_action(self)
+
     @api.onchange('grade_id')
     def _onchange_grade_id(self):
         data = []

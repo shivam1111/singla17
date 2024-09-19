@@ -37,6 +37,7 @@
                     					<field name = "furnace_heat_no" />
                     					<field name = "grade_id" />
                     					<field name =  "grinding" />
+                                        <button name="print_heat_report" string="Print Report" type="object" aria-hidden="true" class="fa fa-print"/>
                                 </tree>
                             </field>
                             <field name ="remarks" placeholder = "Remarks" nolable = "1" />
