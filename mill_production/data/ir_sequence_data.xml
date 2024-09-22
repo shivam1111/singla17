@@ -7,6 +7,16 @@
         <field name="padding">5</field>
         <field name="company_id" eval="False"/>
     </record>
+
+   <record id="seq_mill_production" model="ir.sequence">
+        <field name="name">Mill Production</field>
+        <field name="code">mill.production</field>
+        <field name="prefix">MO</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+
     <record id="seq_production_bundle" model="ir.sequence">
         <field name="name">Bundles</field>
         <field name="code">production.bundle</field>

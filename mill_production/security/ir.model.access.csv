@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_production_order,production_order	,mill_production.model_production_order,base.group_user,1,1,1,1
 access_production_line,production_order_line,mill_production.model_production_order_line,base.group_user,1,1,1,1
+access_mill_production,mill_production,mill_production.model_mill_production,base.group_user,1,1,1,1

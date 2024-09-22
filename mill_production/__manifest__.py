@@ -10,11 +10,12 @@
     'description': """
     """,
     'website': 'https://www.odoo.com',
-    'depends': ['base','mail','mill_order'],
+    'depends': ['base','mail','mill_purchase_order'],
     'data': [
         'data/ir_sequence_data.xml',
         'security/ir.model.access.csv',
         'views/production_order.xml',
+        'views/mill_production_view.xml',
         'report/ir_actions_report.xml',
         'report/production_order_report.xml',
 
