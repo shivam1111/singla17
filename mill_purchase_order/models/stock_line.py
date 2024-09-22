@@ -20,7 +20,7 @@ class StockLine(models.Model):
         self.partner_id = self.purchase_id.partner_id
 
     name = fields.Char('Name',default = '/',required = True)
-    date = fields.Char('Date',required=True,default = fields.Date.today)
+    date = fields.Date('Date',required=True,default = fields.Date.today)
     remarks = fields.Text('Remarks')
     partner_id = fields.Many2one('res.partner', help="Mostly furnce, but depends on usage", string="Partner")
     grade_id = fields.Many2one('material.grade', string="Material Grade", required=True)
