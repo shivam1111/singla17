@@ -89,7 +89,10 @@ class MillProduction(models.Model):
 
     @api.depends('png_units_opening', 'png_units_closing')
     def _compute_png_mt(self):
-        self.png_net_mt = self.png_net/self.total_production
+        try:
+            self.png_net_mt = self.png_net/self.total_production
+        except ZeroDivisionError:
+            self.png_net_mt = 0.00
 
     name = fields.Char('Name', default='/', required=True)
     date = fields.Date('Date', required=True, default=fields.Date.today)
