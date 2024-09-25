@@ -89,6 +89,18 @@
 										<field name = "water_units_closing" />
 									</group>
 								</page>
+								<page string = "Solar Generation">
+									<group>
+										<group>
+											<field name = "solar_units_opening_kwh" />
+											<field name = "solar_units_closing_kwh" />
+										</group>
+										<group>
+											<field name = "solar_units_opening_kvah" />
+											<field name = "solar_units_closing_kvah" />
+										</group>
+									</group>
+								</page>
 	                    </notebook>
 	                    <group>
 	                    		<field name = "remarks" nolabel = "1" placeholder = "Remarks"/>

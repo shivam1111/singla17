@@ -117,7 +117,7 @@ class MillProduction(models.Model):
     mill_kara = fields.Float('Mill Kara')
     miss_roll = fields.Text('Miss Roll')
     total_units = fields.Float("Total Units Consumed", compute="_compute_units", store=True)
-    units_per_mt = fields.Float('Units/MT', compute='_compute_units_mt')
+    units_per_mt = fields.Float('Units/MT', compute='_compute_units_mt',digits=(16, 2))
     kwh_mt = fields.Float('KWH/MT', compute='_compute_kwh_mt')
     size_id = fields.Many2one('size.size', related="production_line_ids.size_id", string="Size")
     water_units_opening = fields.Float('Water Units Opening')
