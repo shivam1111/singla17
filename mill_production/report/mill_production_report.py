@@ -5,23 +5,25 @@ class MillProductionReport(models.AbstractModel):
     _inherit = 'report.report_xlsx.abstract'
     _description = 'Mill Production Report'
 
-    def generate_xlsx_report(self, workbook, data, po):
-        headers_row = ['Size','Net Wt','Scrap','Scrap %']
+    def generate_xlsx_report(self, workbook, data, pos):
+        headers_row = ['Size','Qty','Scrap','Scrap %']
         summary_headers = ['','Water','Solar (KW)','Solar (KV)','KW','KV']
+        if len(pos) <= 1:
+            report_name = pos[0].name
+        else:
+            report_name = "Production"
 
-        if len(self) <= 1:
+        sheet = workbook.add_worksheet(report_name[:31])
+        row_counter = 1
+        for po in pos:
             def write_row(sheet,column,counter,row,format):
                 sheet.write_row('{column}{row}'.format(column=column,row=counter),row,format)
                 return counter+1
-
-            report_name = po.name
-            sheet = workbook.add_worksheet(report_name[:31])
             header_format = workbook.add_format({'bold': True})
             header_format.set_border()
             header_format.set_align('center')
             col_header_format = workbook.add_format({'bold': True,'border':1})
             col_format = workbook.add_format({'border':1})
-            row_counter = 1
             date_format = workbook.add_format({'num_format': 'dd/mm/yy','bold':True,'border':1})
             date_format.set_align('center')
             date_row = ['Date',po.date]
@@ -59,15 +61,9 @@ class MillProductionReport(models.AbstractModel):
                 sheet.write_row('A%s' % row_counter, row,row_format)
                 row_counter+=1
             # Summary Printing
-            summary_row = ['PNG/MT',po.png_net_mt,'MD/MT',po.md_mt,'Hours',po.hours,'Units/MT',po.units_per_mt]
+            summary_row = ['Total Prod.',po.total_production,'PNG/MT',po.png_net_mt,'MD/MT',po.md_mt,'Hours',po.hours,'Units/MT',po.units_per_mt]
             summary_format = workbook.add_format({'bold':True})
             summary_format.set_border()
             summary_format.set_align('center')
             row_counter = write_row(sheet,'A',row_counter,summary_row,summary_format)
-
-        else:
-            for obj in po:
-                report_name = obj.name
-                sheet = workbook.add_worksheet(report_name[:31])
-                bold = workbook.add_format({'bold': True})
-                sheet.write(0, 0, obj.name, bold)
+            row_counter+=1
