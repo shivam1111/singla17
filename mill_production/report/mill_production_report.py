@@ -67,3 +67,4 @@ class MillProductionReport(models.AbstractModel):
             summary_format.set_align('center')
             row_counter = write_row(sheet,'A',row_counter,summary_row,summary_format)
             row_counter+=1
+        sheet.set_landscape()
