@@ -83,6 +83,12 @@
 										<field name = "png_units_closing" />
 									</group>
 								</page>
+								<page string = "Water Consumption">
+									<group >
+										<field name = "water_units_opening" />
+										<field name = "water_units_closing" />
+									</group>
+								</page>
 	                    </notebook>
 	                    <group>
 	                    		<field name = "remarks" nolabel = "1" placeholder = "Remarks"/>
