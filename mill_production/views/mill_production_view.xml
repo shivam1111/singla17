@@ -42,7 +42,6 @@
 									<field name = "scrap_percentage"/>
 									<field name = "units_per_mt"/>
 									<field name = "png_net_mt"/>
-									<field name = "kwh_mt"/>
 	                    		</group>
 	                    </group>
 	                    <notebook>
@@ -111,11 +110,26 @@
 			</field>
 	   </record>
 
+		<record id="view_mill_production_filter" model="ir.ui.view">
+		<field name="name">mill.production.search</field>
+		<field name="model">mill.production</field>
+		<field name="arch" type="xml">
+			<search string="Search Orders">
+				<field name = "name" />
+				<field name = "size_id" />
+				<field name = "production_line_ids" />
+				<field name="production_line_ids" string="Heat No." filter_domain="[('production_line_ids.heat_no_ids','ilike',self)]"/>
+				<field name="production_line_ids" string="Bundle No." filter_domain="[('production_line_ids.production_line_id','ilike',self)]"/>
+		   </search>
+		</field>
+	</record>
+
 		<record id="action_mill_productions" model="ir.actions.act_window">
             <field name="name">Mill Production</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">mill.production</field>
             <field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_mill_production_filter"/>
 			<field name="context">{'group_by':'date:month'}</field>
         </record>
 

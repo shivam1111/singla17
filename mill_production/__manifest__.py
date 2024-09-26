@@ -15,9 +15,11 @@
         'data/ir_sequence_data.xml',
         'security/ir.model.access.csv',
         'views/production_order.xml',
+        'views/heat_view.xml',
         'views/mill_production_view.xml',
         'report/ir_actions_report.xml',
         'report/production_order_report.xml',
+
 
     ],
     'demo': [

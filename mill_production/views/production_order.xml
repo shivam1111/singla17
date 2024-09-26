@@ -61,6 +61,7 @@
                     <field name="name" string="Name" filter_domain="[('name','ilike',self)]"/>
                     <field name="line_ids" string = "Customer" filter_domain="[('line_ids.customer_id','child_of',self)]"/>
 					<field name="line_ids" string = "Size" filter_domain="[('line_ids.size_id','ilike',self)]"/>
+					<field name="line_ids" string = "Bundle No." filter_domain="[('line_ids.name','ilike',self)]"/>
                </search>
             </field>
         </record>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+       <record id="view_heat_heat" model="ir.ui.view">
+       		<field name="name">heat.heat.form</field>
+       		<field name="model">heat.heat</field>
+           <field name="inherit_id" ref="mill_purchase_order.view_heat_heat_form"/>
+       		<field name="arch" type="xml">
+                <xpath expr = "//notebook" position="inside">
+                    <page string = "Produciton">
+                        <field name = "stock_line_ids" nolabel="1" readonly="1">
+                            <tree string = "Production Details" >
+                                <field name="name" />
+                                <field name = "size_id"/>
+                                <field name = "production_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+       </record>
+</odoo>

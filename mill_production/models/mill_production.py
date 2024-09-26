@@ -1,5 +1,4 @@
 from odoo import models, fields, api
-from odoo import exceptions
 class StockLine(models.Model):
     _inherit ="stock.line"
     _description = "Attaching Production to Stocl Lines"
