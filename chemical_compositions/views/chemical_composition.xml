@@ -111,12 +111,30 @@
         </field>
     </record>
 
+    <record id="view_chemical_composition_filter" model="ir.ui.view">
+        <field name="name">chemical.composition.list.select</field>
+        <field name="model">chemical.composition</field>
+        <field name="arch" type="xml">
+            <search string="Search Compositions">
+                <field name="name" string="Serial Number" filter_domain="[('name','ilike',self)]"/>
+                <field name="partner_id" operator="child_of"/>
+                <field name="grade_id"/>
+                <field name="heat_no"/>
+                <field name = "invoice_no" />
+                <group expand="0" string="Group By">
+                    <filter string="Partner" name = "group_partner_id" domain="[]" context="{'group_by':'partner_id'}"/>
+                    <filter string="Grade" name = "group_partner_id" domain="[]" context="{'group_by':'grade_id'}"/>
+                </group>
+           </search>
+        </field>
+    </record>
+
     <record id="action_chemical_composition" model="ir.actions.act_window">
         <field name="name">Test Certificates</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">chemical.composition</field>
         <field name="view_mode">tree,form</field>
-        <field name="context">{}</field>
+        <field name = "search_view_id" ref = "view_chemical_composition_filter" />
     </record>
 
     <!-- Certificates Management Base Menu -->
@@ -131,4 +149,30 @@
            sequence= "1"
            action = "action_chemical_composition"
             />
+
+    <record id="view_process_route_tree" model="ir.ui.view">
+        <field name="name">process_route.form</field>
+        <field name="model">process.route</field>
+        <field name="arch" type="xml">
+            <tree string="Process Route" editable = "bottom">
+                <field name = "name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_process_route" model="ir.actions.act_window">
+        <field name="name">Process Route</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">process.route</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem
+           id= "submenu_process_route"
+           parent= "menu_certificates_management"
+           sequence= "1"
+           action = "action_process_route"
+            />
+
+
 </odoo>

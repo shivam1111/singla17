@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_chemical_compositions,chemical_compositions,chemical_compositions.model_chemical_composition,base.group_user,1,1,1,1
 access_process_route,process_route,chemical_compositions.model_process_route,base.group_user,1,1,1,1
 access_inclusion_rating_line,inclusion_rating_line,chemical_compositions.model_inclusion_rating_line,base.group_user,1,1,1,1
+access_process_route,prcoess_route,chemical_compositions.model_process_route,base.group_user,1,1,1,1

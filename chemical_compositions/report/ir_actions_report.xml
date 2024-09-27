@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="action_test_certificate_report" model="ir.actions.report">
+       <field name="name">Test Certificate</field>
+       <field name="model">chemical.composition</field>
+       <field name="report_type">qweb-html</field>
+       <field name="report_name">chemical_compositions.report_chemical_compositions</field>
+       <field name="report_file">chemical_compositions.test_certificate</field>
+       <field name="print_report_name">'%s' % (object.name)</field>
+       <field name="binding_model_id" ref="model_chemical_composition"/>
+       <field name="binding_type">report</field>
+   </record>
+</odoo>

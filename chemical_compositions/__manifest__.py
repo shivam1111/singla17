@@ -14,7 +14,11 @@
     'data': [
             'data/ir_sequence_data.xml',
             'views/chemical_composition.xml',
-            'security/ir.model.access.csv'
+            'security/ir.model.access.csv',
+            'report/external_standard_layout.xml',
+            'report/test_certificate.xml',
+            'report/ir_actions_report.xml',
+
     ],
     'demo': [
     ],
