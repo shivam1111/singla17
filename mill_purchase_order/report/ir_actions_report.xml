@@ -33,5 +33,16 @@
        <field name="binding_type">report</field>
    </record>
 
+   <record id="action_material_grade_report" model="ir.actions.report">
+       <field name="name">Grade Report</field>
+       <field name="model">material.grade</field>
+       <field name="report_type">qweb-html</field>
+       <field name="report_name">mill_purchase_order.report_material_grade</field>
+       <field name="report_file">mill_purchase_order.material_grade_report</field>
+       <field name="print_report_name">''+object.name </field>
+       <field name="binding_model_id" ref="mill_purchase_order.model_material_grade"/>
+       <field name="binding_type">report</field>
+   </record>
+
 
 </odoo>

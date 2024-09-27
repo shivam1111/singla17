@@ -24,7 +24,8 @@
         'report/ir_actions_report.xml',
         'report/brokerage_report.xml',
         'report/purchase_summary.xml',
-        'report/heat_report.xml'
+        'report/heat_report.xml',
+        'report/material_grade_report.xml',
     ],
     'demo': [
     ],
