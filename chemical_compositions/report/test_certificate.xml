@@ -9,7 +9,6 @@
 		            <div class = "row" style = "padding: 10px;">
 		            		<div class = "text-center">Test Certificate (Based on Actual Tests carried out as per our sampling plan)</div>
 		            </div>
-		            <div class = "row" style = "padding: 10px;">
 			            <table class = "table table-condensed caption-top">
 							<caption style="color:black;"><strong>Customer: </strong><span style = "text-transform:uppercase;"><t t-esc="doc.partner_id and doc.partner_id.name or '-'" /></span></caption>
 							<tr>
@@ -39,12 +38,12 @@
 			            			<td><span style = "text-transform:uppercase;"><t t-esc="doc.color_code or '-'" /></span></td>
 			            		</tr>
 			            </table>
-			            <table class = "table table-striped table-bordered table-responsive caption-top">
+			            <table class = "table table-sm o_main_table table-bordered mt-4 caption-top">
 			            		<caption>CHEMICAL COMPOSITION</caption>
 			            		<thead class="thead-dark">
-			            			<th>ELEMENTS</th>
+			            			<th class = "text-start">ELEMENTS</th>
 			            			<t t-foreach="doc.line_ids" t-as="l">
-			            				<th>
+			            				<th class = "text-start">
 			            					%<t t-esc="l.element_id.code"/>
 			            				</th>
 			            			</t>
@@ -83,10 +82,10 @@
 			            		</tbody>
 			            </table>
 			            <!-- <table t-if="doc.mechanical_properties" class = "table table-condensed"> table-condensed -->
-			            <table  class = "table table-bordered caption-top">
+			            <table  class = "table table-sm o_main_table table-bordered mt-4 caption-top">
 		            		<caption>MECHANICAL PROPERTIES</caption>
 		            		<tr>
-		            			<th>Ultimate Tensile Strength</th>
+		            			<th class = "text-start">Ultimate Tensile Strength</th>
 		            			<td><p t-esc="doc.ultimate_tensile_strength and str(doc.ultimate_tensile_strength) + ' N/mm2' or '-'"/></td>
 		            			<th>Yield Strength</th>
 		            			<td><p t-esc="doc.yield_strength and str(doc.yield_strength) + ' N/mm2' or '-'"/></td>
@@ -138,13 +137,12 @@
 	            				<td><strong t-field="doc.route_id" ></strong></td>
 		            		</tr>
 			            </table>
-		            </div>
-		            <div class = "row">
-		            	<div class = "col">
-		            		<table class = "table table-striped caption-top">
+					<div class="row mt-4 mb-2" id="informations">
+						<div class = "col-5 col-auto mw-100 mb-2">
+		            		<table class = "table table-sm o_main_table table-bordered mt-4 caption-top">
 		            			<caption>INCLUSIOSN RATING</caption>
 			            			<thead>
-			            				<th>INCLUSION TYPE</th>
+			            				<th class = "text-start" >INCLUSION TYPE</th>
 			            				<th>A</th>
 			            				<th>B</th>
 			            				<th>C</th>
@@ -184,7 +182,7 @@
 		            			</tbody>
 	            			</table>
 		            	</div>
-		            	<div class = "col" >
+		            	<div class = "col-5 col-auto mw-100 mb-2" style="padding-left:10px;" >
 		            		<strong>REMARKS</strong>
 	            			<p>
 	            			1. Fully killed by 'Al' &amp; 'Si' and made to attain fine grain precise<br/>
@@ -194,18 +192,18 @@
 							<span t-if="doc.remarks" >5. <strong t-field="doc.remarks" /></span>
 							</p>
 		            	</div>
-	            	</div>
+					</div>
 		        </div>
             	<div class = "footer o_standard_footer o_company_#{company.id}_layout">
-	            	<div style = "border:1px solid black;" class = "row">
-	            		<div style = "border-right:1px solid black;height:90px;" class = "col">
-	            			<span style = "bottom:0px;text-align:center;">Prepared By</span>
+	            	<div  class="row mt-4 mb-2" id="informations" >
+	            		<div class = "col-4 col-auto mw-100 mb-2">
+	            			<span style = "padding:10px">Prepared By</span>
 	            		</div>
-	            		<div style = "border-right:1px solid black;height:90px;" class = "col">
-	            			<span style = "bottom:0px;text-align:center;">Checked By</span>
+	            		<div  class = "col-4 col-auto mw-100 mb-2">
+	            			<span style = "padding:10px">Checked By</span>
 	            		</div>
-	            		<div style = "height:90px;" class = "col">
-	            			<span style = "bottom:0px;text-align:center;">Authorised By</span>
+	            		<div class = "col-4 col-auto mw-100 mb-2">
+	            			<span style = "padding:10px">Authorised By</span>
 	            		</div>
 	            	</div>
             	</div>
