@@ -7,7 +7,7 @@
 					<div class="oe_structure"/>
 		            <div class = "row" style = "padding: 10px;">
 		            		<div style = "text-align:center;"><h2><t t-esc="doc.print_name or doc.name"/></h2></div>
-			            <table class = "table table-striped table-bordered table-responsive caption-top">
+			            <table class = "table table-sm o_main_table table-borderless mt-4 caption-top">
 			            		<caption>CHEMICAL COMPOSITION</caption>
 			            		<thead class="thead-dark">
 			            			<th>ELEMENTS</th>
