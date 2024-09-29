@@ -5,17 +5,18 @@
     			<t t-call="web.external_layout">
     				<div class = "page">
 					<div class="oe_structure"/>
-		            <div class = "row" style = "padding: 10px;">
-		            		<div style = "text-align:center;"><h2><t t-esc="doc.print_name or doc.name"/></h2></div>
-			            <table class = "table table-sm o_main_table table-borderless mt-4 caption-top">
+						<div style = "text-align:center;"><h2><t t-esc="doc.print_name or doc.name"/></h2></div>
+						<table class = "table table-sm o_main_table table-borderless mt-4 caption-top">
 			            		<caption>CHEMICAL COMPOSITION</caption>
-			            		<thead class="thead-dark">
-			            			<th>ELEMENTS</th>
-			            			<t t-foreach="doc.line_ids" t-as="l">
-			            				<th>
-			            					%<t t-esc="l.element_id.code"/>
-			            				</th>
-			            			</t>
+			            		 <thead style="display: table-row-group">
+									<tr>
+										<th class="text-start">ELEMENTS</th>
+										<t t-foreach="doc.line_ids" t-as="l">
+											<th class="text-start">
+												%<t t-esc="l.element_id.code"/>
+											</th>
+										</t>
+									</tr>
 			            		</thead>
 			            		<tbody>
 			            			<tr>
@@ -44,8 +45,7 @@
 			            			</tr>		            			            			
 			            		</tbody>
 			            </table>
-		            </div>
-    		            <div class = "row">
+					<div class = "row">
 	            			<p t-field="doc.remarks" />
 		            </div>    				
     				</div>
