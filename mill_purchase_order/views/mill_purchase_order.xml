@@ -71,6 +71,7 @@
        				<field name = "date_order"/>
        				<field name = "material_ordered" sum ="Total Ordered" />
        				<field name = "material_received" sum ="Total Completed" />
+                    <field name = "balance" sum ="Balance" />
        				<field name = "grade_id" />
        				<field name = "size" />
        				<field name = "broker_id"/>
