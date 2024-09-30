@@ -6,7 +6,7 @@ from odoo.exceptions import AccessError, UserError, ValidationError
 class MillPurchaseOrder(models.Model):
     _name = "mill.purchase.order"
     _description = "Mill Purchase Order"
-    _order = ['date_order','name']
+    _order = 'date_order,name asc'
 
     @api.depends('basic_rate','extra_rate')
     def _amount_all(self):
