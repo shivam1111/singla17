@@ -26,7 +26,7 @@
 
                         </group>
                         <group>
-                            <field name = "broker_id" widget="selection" />
+                            <field name = "broker_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}" />
                             <field name = "basic_rate"/>
                             <field name = "extra_rate" />
                             <field name = "net_rate" />
