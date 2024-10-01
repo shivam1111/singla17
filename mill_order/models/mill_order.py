@@ -79,7 +79,7 @@ class MillOrderSizeLine(models.Model):
     rate = fields.Float("Rate")
     remarks = fields.Text("Remarks")
     corner_id = fields.Many2one('corner.type', string="Corner Type", related="size.corner_id", store=True)
-    order_id = fields.Many2one('mill.order')
+    order_id = fields.Many2one('mill.order',ondelete='cascade', index=True, copy=False, readonly=True)
     partner_id = fields.Many2one('res.partner', related="order_id.partner_id", string="Customer", store=True)
     state = fields.Selection([
         ('draft', 'Draft'),
