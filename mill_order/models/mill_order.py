@@ -115,7 +115,7 @@ class MillOrderSizeLineCompleted(models.Model):
     completed_qty = fields.Float('Qty')
     remarks = fields.Text("Remarks")
     invoice = fields.Char('Invoice No.')
-    order_id = fields.Many2one('mill.order')
+    order_id = fields.Many2one('mill.order',ondelete='cascade', index=True, copy=False, readonly=True)
     complete_date = fields.Date('Date',default = fields.Date.today)
 
 class MillOrder(models.Model):
