@@ -91,6 +91,7 @@
                             </field>
                         </page>
                     </notebook>
+                    <field name="note" nolabel="1" placeholder="Remarks" />
                 </sheet>
             </form>
         </field>
