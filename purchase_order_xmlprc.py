@@ -20,16 +20,18 @@ uid2 = common_auth2.authenticate(database, user2, password2, {})
 data_model = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(data_url))
 data_model2 = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(data_url2))
 
-po_name = ['SSAI-PO7561']
-partner_id = 470
-broker_id = 457
+po_name = ['SSAI-PO7557','SSAI-PO7563']
+partner_id = 480
+broker_id = 453
 # Sanjay = 460
 #Manojji = 453
 #Rajenderji = 457
 
-grade_id = 98
+grade_id = 188
 #sup9 = 65
+#en8d = 71
 #30mncrB5 = 98
+#52100 = 188
 
 po_ids = data_model.execute_kw(database, uid, password, 'mill.purchase.order', 'search',[[['name', 'in', po_name]]])
 data_po = data_model.execute_kw(database, uid, password, 'mill.purchase.order', 'read',[po_ids])
