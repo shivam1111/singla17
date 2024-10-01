@@ -1,8 +1,4 @@
 import xmlrpc.client
-import pandas as pd
-
-# ssh -i ~/ec2_keys/singla.pem ubuntu@52.66.18.249
-# Sale1989!
 
 data_url = "http://www.singlasteel.in" # odoo instance url
 database = 'ssai' # database name
