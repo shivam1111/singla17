@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Brokerage Report Wizard -->
+    <record id="mill_order_purchase_order_form" model="ir.ui.view">
+            <field name="name">mill.order.purchase.order.form</field>
+            <field name="model">mill.order</field>
+            <field name="inherit_id" ref="mill_order.view_mill_order_form"/>
+            <field name="arch" type="xml">
+				<field name="order_qty" position="after">
+					<field name = "purchase_id" />
+				</field>
+            </field>
+    </record>
+</odoo>

@@ -21,6 +21,7 @@
         'views/heat_heat.xml',
         'views/material_grade.xml',
         'views/brokerage_report_view.xml',
+        'views/mill_order.xml',
         'report/ir_actions_report.xml',
         'report/brokerage_report.xml',
         'report/purchase_summary.xml',
