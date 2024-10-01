@@ -20,7 +20,7 @@ class CompositionLine(models.Model):
     actual_val = fields.Char('Actual')
     furnace_val = fields.Char('Furnace Report')
     sequence = fields.Integer('Sequence')
-    heat_id = fields.Many2one('heat.heat','Heat')
+    heat_id = fields.Many2one('heat.heat',string = 'Heat',ondelete='cascade', index=True, copy=False, readonly=True)
     grade_id = fields.Many2one('material.grade',"Grade")
 
 class Heat(models.Model):
