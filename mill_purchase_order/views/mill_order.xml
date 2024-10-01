@@ -6,7 +6,7 @@
             <field name="model">mill.order</field>
             <field name="inherit_id" ref="mill_order.view_mill_order_form"/>
             <field name="arch" type="xml">
-				<field name="order_qty" position="after">
+				<field name="partner_id" position="after">
 					<field name = "purchase_id" />
 				</field>
             </field>
