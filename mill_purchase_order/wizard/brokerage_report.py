@@ -25,7 +25,7 @@ class BrokerageReport(models.TransientModel):
                                                     ('date','>=',self.from_date),
                                                     ('date','<=',self.to_date),
                                                     ('purchase_id.state','!=','cancel'),
-                                                    ('type','in',['purchase']),
+                                                    ('type','in',['purchase','trade']),
                                                     ])
         data = {
             'doc_ids': stock_line.ids,
