@@ -14,6 +14,21 @@
 	    </field>
     </record>
 
+    <!--  Material Filter View -->
+        <record id="view_material_grade_search" model="ir.ui.view">
+            <field name="name">material.grade.search.view</field>
+            <field name="model">material.grade</field>
+            <field name="arch" type="xml">
+                <search string="Search Orders">
+                    <field name="name" string="Name" filter_domain="[('name','ilike',self)]"/>
+                    <filter string="Positive Stock" domain="[('qty','>',0.00)]" name="qty_positive"/>
+					<filter string="Negative Stock" domain="[('qty','&lt;',0.00)]" name="qty_negative"/>
+                    <group expand="0" string="Group By">
+                    </group>
+               </search>
+            </field>
+        </record>
+
 	<!--    Material Grade Pivot-->
     <record id="mill_grade_view_pivot" model="ir.ui.view">
         <field name="name">material.grade.view.pivot</field>
@@ -92,6 +107,7 @@
         <field name="name">Material Grades</field>
         <field name="res_model">material.grade</field>
         <field name="view_mode">tree,form,pivot</field>
-        <field name="context">{}</field>
+		<field name = "search_view_id" ref="view_material_grade_search" />
+        <field name="context">{'search_default_qty_positive':1}</field>
     </record>
 </odoo>
