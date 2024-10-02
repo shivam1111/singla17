@@ -31,7 +31,8 @@ class MaterialGrade(models.Model):
             grade.qty = total
 
     qty = fields.Float('Qty', compute="_compute_qty", store=True)
-    stock_line_ids = fields.One2many('stock.line', 'grade_id', 'Stock')
+    stock_line_ids = fields.One2many('stock.line', 'grade_id', 'Stock',domain=[('type','=',['production','purchase','adjustment'])])
+    trading_line_ids = fields.One2many('stock.line', 'grade_id', 'Stock',domain=[('type','=',['trade'])])
     print_name = fields.Char('Print Name')
     line_ids = fields.One2many('composition.line', 'grade_id', 'Composition Line')
     remarks = fields.Text('Remarks')

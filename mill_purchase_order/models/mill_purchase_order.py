@@ -33,17 +33,17 @@ class MillPurchaseOrder(models.Model):
         return self.env.user.company_id.currency_id.id
 
 
-    @api.depends('stock_line_ids','material_ordered')
+    @api.depends('stock_line_ids','material_ordered','trading_line_ids')
     def _compute_qty(self):
         for po in self:
             total = 0.00
             for i in po.stock_line_ids:
                 total = total + i.qty
+            for j in po.trading_line_ids:
+                total = total + j.qty
             self.material_received  = total
             balance = po.material_ordered - total
             self.balance = max(balance,0)
-
-
 
     name = fields.Char('Name')
     partner_id = fields.Many2one('res.partner','Supplier')
@@ -64,6 +64,7 @@ class MillPurchaseOrder(models.Model):
     basic_rate = fields.Monetary('Basic Rate',currency_field = "currency_id")
     extra_rate = fields.Monetary('Extra Rate',currency_field = "currency_id")
     stock_line_ids = fields.One2many('stock.line', 'purchase_id', 'Stock', domain=[('type', '=', 'purchase')])
+    trading_line_ids = fields.One2many('stock.line', 'purchase_id', 'Stock', domain=[('type', '=', 'trade')])
     net_rate = fields.Monetary(string='Net Rate', store=False, readonly=True,currency_field = "currency_id", compute='_amount_all')
     material_feature_ids = fields.Many2many('material.feature','mill_purchase_order_material_feature_rel','order_id','feature_id','Features')
     heats= fields.Float('Heats')

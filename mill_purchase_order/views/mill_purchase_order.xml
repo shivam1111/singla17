@@ -35,7 +35,7 @@
                     </group>
                     <notebook>
                         <page string = "Stock">
-                            <field name = "stock_line_ids" nolabel = "1"  context="{'default_partner_id':partner_id,'default_grade_id':grade_id,'default_type':'purchase'}">
+                            <field name = "stock_line_ids" nolabel = "1"   context="{'default_partner_id':partner_id,'default_grade_id':grade_id,'default_type':'purchase'}">
 		    				<tree string = "Purchase Stock Line" editable = "1">
 		    					<field name = "name" readonly ="1" />
 		    					<field name = "date"  />
@@ -43,8 +43,23 @@
 		    					<field name = "grade_id" />
 		    					<field name = "truck_no" />
 								<field name = "bill_no"/>
-		    					<field name = "type" column_invisible = "1" />
-		    					<field name = "qty" />
+		    					<field name = "type" column_invisible="1" />
+		    					<field name = "qty" sum="Total" />
+		    				</tree>
+                            </field>
+                        </page>
+                        <page string = "Trading">
+                            <field name = "trading_line_ids" nolabel = "1"   context="{'default_partner_id':partner_id,'default_grade_id':grade_id,'default_type':'trade'}">
+		    				<tree string = "Trading Lines" editable = "1">
+		    					<field name = "name" readonly ="1" />
+		    					<field name = "date"  />
+		    					<field name = "partner_id" column_invisible="1"  />
+                                <field name = "trading_partner_id"   />
+		    					<field name = "grade_id" />
+		    					<field name = "truck_no" />
+								<field name = "bill_no"/>
+		    					<field name = "type" column_invisible="1"  />
+		    					<field name = "qty" sum="Total" />
 		    				</tree>
                             </field>
                         </page>

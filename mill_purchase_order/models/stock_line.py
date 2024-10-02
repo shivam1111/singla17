@@ -19,12 +19,20 @@ class StockLine(models.Model):
     def _onchange_purchase_id(self):
         self.partner_id = self.purchase_id.partner_id
 
+    def get_ttype_selection(self):
+        res = []
+        if self.env.context.get('default_type',False) == 'trade':
+            res = [('adjustment','Adjustment Entry'),('trade','Trading')]
+        else:
+            res = [('production','Production'),('purchase','Purchase'),('adjustment','Adjustment Entry'),('trade','Trading')]
+        return res
+
     name = fields.Char('Name',default = '/',required = True)
     date = fields.Date('Date',required=True,default = fields.Date.today)
     remarks = fields.Text('Remarks')
-    partner_id = fields.Many2one('res.partner', help="Mostly furnce, but depends on usage", string="Partner")
+    partner_id = fields.Many2one('res.partner', help="Mostly furance, but depends on usage", string="Partner")
     grade_id = fields.Many2one('material.grade', string="Material Grade", required=True)
-    type = fields.Selection(selection = [('production','Production'),('purchase','Purchase'),('adjustment','Adjustment Entry')],
+    type = fields.Selection(selection = get_ttype_selection,
                             string = "Type",help = "Determines the purpose for which the line has been created",required=True)
     qty = fields.Float('Qty')
     purchase_id = fields.Many2one('mill.purchase.order',string="Purchase Order")
@@ -33,3 +41,4 @@ class StockLine(models.Model):
     bill_no = fields.Char("Bill No.")
     state = fields.Selection(selection=[('stock','Stock Updated'),('heats','Heats Updated')],
                              string = "State",default = "stock")
+    trading_partner_id = fields.Many2one('res.partner', 'Partner')
