@@ -79,24 +79,12 @@
         </field>
     </record>
 
-<!--    Stock Line Pivot-->
-    <record id="mill_stock_view_pivot" model="ir.ui.view">
-        <field name="name">mill.stock.view.pivot</field>
-        <field name="model">stock.line</field>
-        <field name="arch" type="xml">
-            <pivot string="Stock Summary">
-                <field name="grade_id" type="row"/>
-                <field name="qty" type="measure"/>
-            </pivot>
-        </field>
-    </record>
-
 <!--    Stock Line Action-->
     <record id="action_stock_line" model="ir.actions.act_window">
         <field name="name">Stock Line</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.line</field>
-        <field name="view_mode">tree,form,pivot</field>
+        <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="view_mill_stock_line_filter"/>
         <field name = "context">{'search_default_stock_updated':1}</field>
         <field name = "domain">[('qty','>','0')]</field>

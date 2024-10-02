@@ -27,8 +27,8 @@ element_df = pd.DataFrame(element_data)
 print("Old Element Table\n",element_df)
 
 element_idn =  data_model2.execute_kw(database, uid2, password2, 'chemical.element', 'search', [[]])
-element_datan = data_model2.execute_kw(database, uid2, password2, 'chemical.element', 'read', [element_id],{'fields':['name','code']})
-element_dfn = pd.DataFrame(element_data)
+element_datan = data_model2.execute_kw(database, uid2, password2, 'chemical.element', 'read', [element_idn],{'fields':['name','code']})
+element_dfn = pd.DataFrame(element_datan)
 print("New Element Table \n",element_dfn)
 #
 grade_id =  data_model.execute_kw(database, uid, password, 'material.grade', 'search', [[]])
@@ -42,6 +42,7 @@ grade_dfn = pd.DataFrame(grade_datan)
 # print("New Element Table\n",grade_dfn)
 
 heat_id = data_model.execute_kw(database, uid, password, 'heat.heat', 'search', [[['create_date','>=','07-01-2024']]])
+heat_id=[17199]
 heat_data = data_model.execute_kw(database, uid, password, 'heat.heat', 'read', [heat_id])
 
 for heat in heat_data:
@@ -66,11 +67,14 @@ for heat in heat_data:
     composition_lines_data = data_model.execute_kw(database, uid, password, 'composition.line', 'read', [heat.get('line_ids')])
     for i in composition_lines_data:
         el_id = i.get('element_id', False)
+        print("el_id",el_id)
         el_idn = False
         if el_id:
             el_code = element_df.query('id==%s' % el_id[0]).get('code').to_list()
+            print('el_code',el_code)
             if el_code:
                 el_idn = element_dfn.query("code=='%s'" % el_code[0]).get('id').to_list()
+                print('el_idn',el_idn)
             line_ids_data.append([
             0,0,{
                 'element_id':el_idn and el_idn[0] or False,
@@ -81,4 +85,5 @@ for heat in heat_data:
             }
         ])
     vals.update({'line_ids':line_ids_data})
+    print(vals)
     data_model2.execute_kw(database, uid2, password2, 'heat.heat', 'create', [vals])

@@ -14,6 +14,18 @@
 	    </field>
     </record>
 
+	<!--    Material Grade Pivot-->
+    <record id="mill_grade_view_pivot" model="ir.ui.view">
+        <field name="name">material.grade.view.pivot</field>
+        <field name="model">material.grade</field>
+        <field name="arch" type="xml">
+            <pivot string="Stock Summary">
+                <field name="name" type="row"/>
+                <field name="qty" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
 	<record id="view_material_grade_form" model="ir.ui.view">
 	    <field name="name">material.grade.stock.form</field>
 	    <field name="model">material.grade</field>
@@ -37,7 +49,7 @@
 									<tree string = "Stock" editable = "top" decoration-danger = "type == 'production'" decoration-success = "type == 'purchase'" decoration-info = "type == 'adjustment'">
 										<field name = "name" readonly="1"/>
 										<field name = "date"/>
-										<field name = "partner_id" />
+										<field name = "partner_id"  string = "Furnace"/>
 										<field name = "purchase_id" readonly="1" />
 										<field name = "qty" sum = "Total Available Qty"/>
 										<field name = "remarks" />
@@ -61,4 +73,10 @@
 			</form>
 	    </field>
 	</record>
+	<record id="mill_order.action_material_grade" model="ir.actions.act_window">
+        <field name="name">Material Grades</field>
+        <field name="res_model">material.grade</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="context">{}</field>
+    </record>
 </odoo>
