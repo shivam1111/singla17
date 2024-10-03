@@ -103,6 +103,7 @@
 			</form>
 	    </field>
 	</record>
+
 	<record id="mill_order.action_material_grade" model="ir.actions.act_window">
         <field name="name">Material Grades</field>
         <field name="res_model">material.grade</field>

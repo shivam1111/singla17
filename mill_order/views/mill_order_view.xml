@@ -81,8 +81,8 @@
                             <field name = "line_completed_ids" nolabel = "1"  invisible = "id == False">
                                 <tree string = "Completed Size Line"   editable = "bottom">
                                     <field name = "name" readonly = "1"/>
-                                    <field name = "line_id" domain = "[('order_id','=',parent.id),('display_type','=',False)]" create="False" delete="False" edit = "False" />
-                                    <field name = "size_id"  />
+                                    <field name = "line_id" domain = "[('order_id','=',parent.id),('display_type','=',False)]" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}" />
+                                    <field name = "size_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}"  />
                                     <field name = "complete_date"/>
                                     <field name = "completed_qty" sum = "Total Qty" />
                                     <field name = "invoice" />

@@ -122,6 +122,13 @@ class MillOrder(models.Model):
     _name = "mill.order"
     _description = "Mill Order"
 
+    @api.onchange('line_ids')
+    def _onchange_line_ids(self):
+        for order in self:
+            print(order)
+            sizes_list = map(lambda x:x.size and x.size.name or '',order.line_ids)
+            order.size = ' | '.join(sizes_list) or "Size Unknown"
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
