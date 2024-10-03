@@ -50,7 +50,6 @@ class ChemicalComposition(models.Model):
 
     @api.onchange('heat_id')
     def _onchange_heat_id(self):
-        print('--------heat_id',self._context)
         for c in self:
             data = []
             heat_id = c.heat_id
@@ -96,8 +95,8 @@ class ChemicalComposition(models.Model):
     line_ids = fields.One2many('composition.line','composition_id','Composition Line')
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env['res.company']._company_default_get('sale.order'))
     inclusion_rating_ids = fields.One2many('inclusion.rating.line','composition_id','Inclusion Rating')
-    min_hardness = fields.Char("Min. Hardness",default = "255")
-    max_hardness = fields.Char("Max. Hardness",default = "280")
+    min_hardness = fields.Char("Min. Hardness")
+    max_hardness = fields.Char("Max. Hardness")
     complete_decarb = fields.Float('Complete Decarb')
     partial_decarb = fields.Float('Partial Decarb')
     grain_size = fields.Float('Grain Size')
