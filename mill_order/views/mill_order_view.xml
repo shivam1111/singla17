@@ -46,7 +46,7 @@
                     <notebook>
                         <page string = "Order">
                             <div class="oe_title"><h2>Order Lines</h2></div>
-                            <field name = "line_ids" nolabel = "1" widget="section_and_note_one2many"
+                            <field name = "line_ids" nolabel = "1" widget="section_and_note_one2many" required="1"
                                    mode="tree" context = "{'default_rate':net_rate,'default_display_type': False}">
                                 <tree string = "Size Line"  decoration-danger = "state == 'cancel'" decoration-muted="state == 'done'" decoration-bf="state=='manufactured'"
                                       decoration-info="state == 'draft'"  editable = "bottom"  >

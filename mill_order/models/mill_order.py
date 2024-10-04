@@ -219,7 +219,7 @@ class MillOrder(models.Model):
         ('done', 'Done'),
         ('cancel','Cancel'),
         ], string='Status', readonly=False, copy=False, index=True, default='draft')
-    line_ids = fields.One2many('mill.order.size.line','order_id','Order Lines',required=True)
+    line_ids = fields.One2many('mill.order.size.line','order_id','Order Lines')
     line_completed_ids = fields.One2many('mill.order.size.line.completed','order_id','Completed Order Lines')
     material_feature_ids = fields.Many2many('material.feature','mill_order_material_feature_rel','order_id','feature_id','Features')
     balance = fields.Float('Balance', compute='_compute_qty',store=True)
