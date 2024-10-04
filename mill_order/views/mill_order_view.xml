@@ -81,8 +81,8 @@
                             <field name = "line_completed_ids" nolabel = "1"  invisible = "id == False">
                                 <tree string = "Completed Size Line"   editable = "bottom">
                                     <field name = "name" readonly = "1"/>
-                                    <field name = "line_id" domain = "[('order_id','=',parent.id),('display_type','=',False)]" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}" />
-                                    <field name = "size_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}"  />
+                                    <field name = "line_id" required="1" domain = "[('order_id','=',parent.id),('display_type','=',False)]" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}" />
+                                    <field name = "size_id" required="1" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}"  />
                                     <field name = "complete_date"/>
                                     <field name = "completed_qty" sum = "Total Qty" />
                                     <field name = "invoice" />
@@ -174,6 +174,7 @@
            sequence= "2"
            action = "action_material_grade"
             />
+
 <!--    size.size Views-->
     <record id="view_mill_size_size_tree" model="ir.ui.view">
         <field name="name">mill.size.size.tree</field>

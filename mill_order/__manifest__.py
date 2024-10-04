@@ -20,6 +20,7 @@
         'data/ir_sequence_data.xml',
         'report/report_orders_list.xml',
         'report/ir_actions_report.xml',
+        'report/mill_order_report_view.xml',
 
     ],
     'demo': [
