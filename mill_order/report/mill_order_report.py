@@ -12,7 +12,8 @@ class MillOrderReport(models.Model):
     completed_qty = fields.Float('Completed Qty')
     balance = fields.Float('Balance')
     partner_id = fields.Many2one('res.partner', string="Customer")
-    grade_id = fields.Many2one('material.grade',string = "Grade")
+    grade_id = fields.Many2one('material.grade', string = "Grade")
+    order_id = fields.Many2one('mill.order', string="Order")
     state = fields.Selection([
         ('draft', 'Draft'),
         ('cancel', 'Cancel'),
@@ -21,21 +22,25 @@ class MillOrderReport(models.Model):
 
     def _select(self):
         select_str = """
+            WITH mill_order_size_line_completed AS (select sum(completed_qty) as cq,line_id from  mill_order_size_line_completed GROUP BY line_id )  
             select
                 ol.size as name,
                 ol.partner_id,
                 o.state,
                 ol.order_qty as order_qty,
                 ol.grade_id,
-               COALESCE((select sum(completed_qty) from  mill_order_size_line_completed as olc where ol.id = olc.line_id ),0) as completed_qty,
-                ol.order_qty - COALESCE((select sum(completed_qty) from  mill_order_size_line_completed as olc where ol.id = olc.line_id ),0) as balance
+                COALESCE(olc.cq,0) AS completed_qty,
+                ol.order_id,
+                (ol.order_qty - COALESCE(olc.cq,0)) as balance
 
         """
         return select_str
 
     def _from(self):
         from_str = """
-            mill_order_size_line as ol INNER JOIN mill_order as o on o.id = ol.order_id 
+            mill_order_size_line as ol
+		    INNER JOIN mill_order as o on ol.order_id = o.id
+		    LEFT JOIN mill_order_size_line_completed as olc on olc.line_id = ol.id 
         """
         return from_str
 
