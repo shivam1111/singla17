@@ -110,8 +110,8 @@ class MillOrderSizeLineCompleted(models.Model):
         return result
 
     name = fields.Char('Ref',default=lambda self: _('New'))
-    size_id = fields.Many2one('size.size',"Size")
-    line_id = fields.Many2one('mill.order.size.line','Order Line')
+    size_id = fields.Many2one('size.size',"Size",required=True)
+    line_id = fields.Many2one('mill.order.size.line','Order Line',required=True)
     completed_qty = fields.Float('Qty')
     remarks = fields.Text("Remarks")
     invoice = fields.Char('Invoice No.')
@@ -192,6 +192,14 @@ class MillOrder(models.Model):
             'context': "{'default_res_model': '%s','default_res_id': %d}"
                        % (self._name, res_id)
         }
+
+    @api.constrains('line_ids')
+    def _check_line_ids(self):
+        for record in self:
+            if not record.line_ids:
+                raise ValidationError("Order Lines cannot be empty")
+        # all records passed the test, don't return anything
+
 
     # === FIELDS ===#
     name = fields.Char('Ref', default=lambda self: _('New'))
