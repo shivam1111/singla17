@@ -10,6 +10,9 @@
        				<field name = "hours"  sum = "Total Hours"/>
 					<field name = "total_production" sum = "Total Production" />
 					<field name = "units_per_mt" avg = "Units/MT" />
+					<field name = "production_mt" avg="Production Rate" />
+					<field name = "png_net_mt" avg="Average Gas Consumption" />
+					<field name = "solar_net" sum="Total Solar Production" />
        			</tree>
        		</field>
    		</record>
@@ -42,6 +45,9 @@
 									<field name = "scrap_percentage"/>
 									<field name = "units_per_mt"/>
 									<field name = "png_net_mt"/>
+									<field name = "production_mt"  />
+									<field name = "solar_net" />
+
 	                    		</group>
 	                    </group>
 	                    <notebook>

@@ -62,13 +62,17 @@ class MillProduction(models.Model):
             except ZeroDivisionError:
                 po.scrap_percentage = 0.00
 
-    @api.depends('production_line_ids', 'production_line_ids.qty')
+    @api.depends('production_line_ids', 'production_line_ids.qty','hours')
     def _compute_total_production(self):
         for po in self:
             total = 0.00
             for i in po.production_line_ids:
                 total = total + i.qty
             po.total_production = -total
+            try:
+                po.production_mt = total/po.hours
+            except ZeroDivisionError:
+                po.production_mt = 0.0
 
     @api.depends('kwh_closing','kwh_opening','total_production')
     def _compute_units(self):
@@ -102,10 +106,15 @@ class MillProduction(models.Model):
                 po.png_net_mt = po.png_net/po.total_production
             except ZeroDivisionError:
                 po.png_net_mt = 0.00
+    @api.depends('solar_units_opening_kwh','solar_units_closing_kwh')
+    def _compute_solar_production(self):
+        for po in self:
+            po.solar_net = po.solar_units_closing_kwh - po.solar_units_opening_kwh
 
     name = fields.Char('Name', default='/', required=True)
     date = fields.Date('Date', required=True, default=fields.Date.today)
     total_production = fields.Float('Total Production', compute="_compute_total_production", store=True)
+    production_mt = fields.Float('Production Rate',compute="_compute_total_production",digits=(16, 2))
     remarks = fields.Text('Remarks')
     production_line_ids = fields.One2many('stock.line', 'production_id', 'Production Lines')
     md_mt = fields.Float('MD/MT')
@@ -123,6 +132,7 @@ class MillProduction(models.Model):
     water_units_closing = fields.Float('Water Units Closing')
     solar_units_opening_kwh = fields.Float('Solar Units Opening (KWH)')
     solar_units_closing_kwh = fields.Float('Solar Units Closing (KWH)')
+    solar_net = fields.Float('Solar Production', compute='_compute_solar_production',store=True)
     solar_units_opening_kvah = fields.Float('Solar Units Opening (KVaH)')
     solar_units_closing_kvah = fields.Float('Solar Units Closing (KVaH)')
     png_units_opening = fields.Float('PNG Opening')
@@ -132,5 +142,5 @@ class MillProduction(models.Model):
     kva_opening = fields.Float('KVA Op.')
     kva_closing = fields.Float('KVA Cl.')
     png_net = fields.Float("Total PNG", compute='_compute_png_units', store=True)
-    png_net_mt = fields.Float('PNG (SCM/MT)',compute="_compute_png_mt",store=True,digits=(16, 2))
+    png_net_mt = fields.Float('PNG (SCM/MT)',compute="_compute_png_mt",digits=(16, 2))
     order_id = fields.Many2one('production.order', 'Production Order')
