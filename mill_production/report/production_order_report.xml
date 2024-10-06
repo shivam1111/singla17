@@ -58,7 +58,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td><strong><t t-esc="sum(l.qty for l in doc.line_ids)" /></strong></td>
+                                            <td><strong><t t-esc="sum(l.qty for l in doc.line_ids)" t-options='{"widget": "float", "precision": 2}'/></strong></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
