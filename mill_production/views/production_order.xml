@@ -37,7 +37,7 @@
 										<field name = "flat_length" optional="hide" />
 										<field name = "qty" sum = "Total Qty"/>
 										<field name = "grade_id" />
-										<field name = "customer_id" />
+										<field name = "customer_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}" />
 										<field name = "partner_id" optional="show" />
 										<field name = "heat_no" />
 										<field name = "cc" />
