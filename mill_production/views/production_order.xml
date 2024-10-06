@@ -34,14 +34,14 @@
 										<field name = "corner_id" />
 										<field name = "pcs" />
 										<field name  = "kg_per_pc" />
-										<field name = "flat_length" />
+										<field name = "flat_length" optional="hide" />
 										<field name = "qty" sum = "Total Qty"/>
 										<field name = "grade_id" />
 										<field name = "customer_id" />
 										<field name = "partner_id" />
 										<field name = "heat_no" />
 										<field name = "cc" />
-										<field name = "is_inspection" />
+										<field name = "is_inspection" optional="show"/>
 										<field name = "remarks" />
 										<field name = "production_id" optional="hide" />
 									</tree>
