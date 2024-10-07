@@ -18,6 +18,8 @@
         'views/heat_view.xml',
         'views/mill_production_view.xml',
         'views/material_grade_view.xml',
+        'views/production_plan_view.xml',
+        'views/mill_order_view.xml',
         'report/ir_actions_report.xml',
         'report/production_order_report.xml',
 

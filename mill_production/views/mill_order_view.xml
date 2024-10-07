@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+       <record id="view_mill_order" model="ir.ui.view">
+       		<field name="name">mill.order</field>
+       		<field name="model">mill.order</field>
+           <field name="inherit_id" ref="mill_order.view_mill_order_form"/>
+       		<field name="arch" type="xml">
+                <xpath expr = "//field[@name='line_ids']/tree" position="inside">
+                    <button name = "shift_to_production_plan" string = "Production Planning" type ="object" class="oe_highlight" />
+                </xpath>
+            </field>
+       </record>
+</odoo>

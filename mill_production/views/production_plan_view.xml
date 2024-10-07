@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="view_mill_production_plan_tree" model="ir.ui.view">
+        <field name="name">production.plan</field>
+        <field name="model">production.plan</field>
+        <field name="arch" type="xml">
+            <tree string = "Production Planning" editable="top">
+                <field name = "sequence" widget="handle" />
+                <field name = "name" optional="show" readonly="1"/>
+                <field name = "date" optional="show"/>
+                <field name = "line_id" optional="show" />
+                <field name = "partner_id" />
+                <field name = "size_id"/>
+                <field name = "corner_id"/>
+                <field name = "grade_id" />
+                <field name = "order_qty" sum="Total Quantity" />
+                <field name = "order_id" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_production_plan_filter" model="ir.ui.view">
+		<field name="name">production.plan.search</field>
+		<field name="model">production.plan</field>
+		<field name="arch" type="xml">
+			<search string="Search Orders">
+				<field name = "name" />
+				<field name = "size_id" />
+				<field name = "partner_id" />
+                    <group expand="0" string="Group By">
+                        <filter  string="Customer" name = "group_partner_id" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter  string="Size" name = "group_size_id" icon="terp-partner" domain="[]" context="{'group_by':'size_id'}"/>
+                    </group>
+		   </search>
+		</field>
+	</record>
+
+    <record id="action_production_plan" model="ir.actions.act_window">
+        <field name="name">Production Planning</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">production.plan</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="view_production_plan_filter"/>
+        <field name="context">{'search_default_group_partner_id':1}</field>
+    </record>
+
+    <menuitem
+           id= "submenu_production_plan"
+           parent= "mill_production.menu_production_management"
+           sequence= "1"
+           action = "action_production_plan"
+            />
+</odoo>
