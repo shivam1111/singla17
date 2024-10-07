@@ -7,12 +7,12 @@
             <tree string = "Production Planning" editable="top">
                 <field name = "sequence" widget="handle" />
                 <field name = "name" optional="show" readonly="1"/>
-                <field name = "date" optional="show"/>
+                <field name = "date" />
                 <field name = "line_id" optional="show" />
                 <field name = "partner_id" />
                 <field name = "size_id"/>
-                <field name = "corner_id"/>
-                <field name = "grade_id" />
+                <field name = "corner_id" optional="show" />
+                <field name = "grade_id"  />
                 <field name = "order_qty" sum="Total Quantity" />
                 <field name = "order_id" optional="show" />
             </tree>
