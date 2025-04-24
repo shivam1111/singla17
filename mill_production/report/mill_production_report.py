@@ -7,12 +7,11 @@ class MillProductionReport(models.AbstractModel):
 
     def generate_xlsx_report(self, workbook, data, pos):
         headers_row = ['Size','Qty','Scrap','Scrap %']
-        summary_headers = ['','Water','Solar (KW)','Solar (KV)','KW','KV']
+        summary_headers = ['','Water','Solar1 (KW) ','Solar2 (KW)','Solar1 (KV)','Solar2 (KV)','KW','KV']
         if len(pos) <= 1:
             report_name = pos[0].name
         else:
             report_name = "Production"
-
         sheet = workbook.add_worksheet(report_name[:31])
         row_counter = 1
         for po in pos:
@@ -34,12 +33,30 @@ class MillProductionReport(models.AbstractModel):
             col_format.set_bold(False)
             sheet.write_column(row_counter+1,col_counter,[po.water_units_opening,po.water_units_closing,(po.water_units_closing-po.water_units_opening)],col_format)
             col_counter+=1
-            sheet.write_column(row_counter + 1, col_counter, [po.solar_units_closing_kwh, po.solar_units_opening_kwh,
-                                                              (po.solar_units_closing_kwh - po.solar_units_opening_kwh)],col_format)
+            sheet.write_column(row_counter + 1, col_counter, [po.solar_units_opening_kwh,po.solar_units_closing_kwh],col_format)
+
             col_counter += 1
+            sheet.write_column(row_counter + 1, col_counter, [po.solar_units_opening_kwh_2,po.solar_units_closing_kwh_2],col_format)
+
+            col_counter += 1
+            # Create a format to use in the merged range.
+            merge_format = workbook.add_format(
+                {
+                    "bold": 1,
+                    "border": 1,
+                    "align": "center",
+                    "valign": "vcenter",
+                }
+            )
+            sheet.merge_range("G5:H5",po.solar_net,merge_format)
             sheet.write_column(row_counter + 1, col_counter, [po.solar_units_opening_kvah, po.solar_units_closing_kvah,
                                                               (po.solar_units_closing_kvah - po.solar_units_opening_kvah)],col_format)
             col_counter += 1
+            sheet.write_column(row_counter + 1, col_counter, [po.solar_units_opening_kvah_2, po.solar_units_closing_kvah_2,
+                                                              (po.solar_units_closing_kvah_2 - po.solar_units_opening_kvah_2)],col_format)
+            col_counter += 1
+            kv_solar_net = (po.solar_units_closing_kvah - po.solar_units_opening_kvah)+(po.solar_units_closing_kvah_2 - po.solar_units_opening_kvah_2)*80
+            sheet.merge_range("I5:J5", (kv_solar_net), merge_format)
             sheet.write_column(row_counter + 1, col_counter, [po.kwh_opening, po.kwh_closing,
                                                               (po.kwh_closing - po.kwh_opening)],col_format)
 
