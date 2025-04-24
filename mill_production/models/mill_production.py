@@ -111,7 +111,8 @@ class MillProduction(models.Model):
                  'solar_units_closing_kwh_2')
     def _compute_solar_production(self):
         for po in self:
-            po.solar_net = (po.solar_units_closing_kwh+ po.solar_units_closing_kwh_2) - (po.solar_units_opening_kwh+po.solar_units_opening_kwh_2)
+            po.solar_net = (po.solar_units_closing_kwh-po.solar_units_opening_kwh)+\
+                           (po.solar_units_closing_kwh_2 - po.solar_units_opening_kwh_2) * 80
 
 
     name = fields.Char('Name', default='/', required=True)
