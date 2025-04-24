@@ -106,15 +106,18 @@ class MillProduction(models.Model):
                 po.png_net_mt = po.png_net/po.total_production
             except ZeroDivisionError:
                 po.png_net_mt = 0.00
-    @api.depends('solar_units_opening_kwh','solar_units_closing_kwh')
+    @api.depends('solar_units_opening_kwh','solar_units_closing_kwh',
+                 'solar_units_opening_kwh_2',
+                 'solar_units_closing_kwh_2')
     def _compute_solar_production(self):
         for po in self:
-            po.solar_net = po.solar_units_closing_kwh - po.solar_units_opening_kwh
+            po.solar_net = (po.solar_units_closing_kwh+ po.solar_units_closing_kwh_2) - (po.solar_units_opening_kwh+po.solar_units_opening_kwh_2)
+
 
     name = fields.Char('Name', default='/', required=True)
     date = fields.Date('Date', required=True, default=fields.Date.today)
     total_production = fields.Float('Total Production', compute="_compute_total_production", store=True)
-    production_mt = fields.Float('Production Rate',compute="_compute_total_production",digits=(16, 2))
+    production_mt = fields.Float('Production Rate',compute="_compute_total_production",store=True,digits=(16, 2))
     remarks = fields.Text('Remarks')
     production_line_ids = fields.One2many('stock.line', 'production_id', 'Production Lines')
     md_mt = fields.Float('MD/MT')
@@ -135,6 +138,11 @@ class MillProduction(models.Model):
     solar_net = fields.Float('Solar Production', compute='_compute_solar_production',store=True)
     solar_units_opening_kvah = fields.Float('Solar Units Opening (KVaH)')
     solar_units_closing_kvah = fields.Float('Solar Units Closing (KVaH)')
+    solar_units_opening_kwh_2 = fields.Float('Solar Units Opening (KWH)')
+    solar_units_closing_kwh_2 = fields.Float('Solar Units Closing (KWH)')
+    solar_units_opening_kvah_2 = fields.Float('Solar Units Opening (KVaH)')
+    solar_units_closing_kvah_2 = fields.Float('Solar Units Closing (KVaH)')
+
     png_units_opening = fields.Float('PNG Opening')
     png_units_closing = fields.Float('PNG Closing')
     kwh_opening = fields.Float('KWH Op.')
