@@ -53,6 +53,7 @@
                                 <field name = "reduction_ratio" />
                                 <field name = "spark_test" />
                                 <field name = "is_mpi" />
+                                <field name = "lateral_bend" />
                             </group>
                             <group>
                                 <field name = "max_hardness" />
@@ -60,6 +61,7 @@
                                 <field name = "grain_size" />
                                 <field name = "surface_inspection" />
                                 <field name = "is_ut" />
+                                <field name = "length" />
                             </group>
                     </group>
                     <notebook>

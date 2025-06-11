@@ -113,4 +113,6 @@ class ChemicalComposition(models.Model):
     nicrmo = fields.Float('Ni+Cr+Mo',compute = '_compute_carbon_equivalence')
     surface_inspection = fields.Selection([('ok','Ok'),('dentfree','Free from Dent')],default = 'dentfree')
     remarks = fields.Text("Remarks")
+    lateral_bend = fields.Float("Lateral Bend")
+    length = fields.Char("Length")
 
