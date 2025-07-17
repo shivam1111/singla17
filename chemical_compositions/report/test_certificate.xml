@@ -136,14 +136,12 @@
 	            				<th>Process Route</th>
 	            				<td><strong t-field="doc.route_id" ></strong></td>
 		            		</tr>
-							<t t-if = "doc.lateral_bend">
 								<tr>
 										<th>Lateral Bend</th>
 										<td><t t-esc="doc.lateral_bend or '-'" /></td>
 										<th>Length</th>
-										<td><t t-esc="doc.length or '-'" /></td>
+										<td><t t-esc="doc.length  or '-'" /></td>
 								</tr>
-							</t>
 			            </table>
 					<div class="row mt-4 mb-2" id="informations">
 						<div class = "col-5 col-auto mw-100 mb-2">
