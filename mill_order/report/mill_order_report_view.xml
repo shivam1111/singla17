@@ -13,6 +13,19 @@
          </field>
     </record>
 
+    <record id="view_mill_order_report_filter" model="ir.ui.view">
+        <field name="name">mill.order.report.filter</field>
+        <field name="model">mill.order.report</field>
+        <field name="arch" type="xml">
+            <search string="Search Order">
+                <field name="name" string="Size" />
+                <field name="partner_id" operator="child_of"/>
+                <field name="grade_id"/>
+                <field name="order_id"/>
+           </search>
+        </field>
+    </record>
+
     <record id="action_mill_order_report" model="ir.actions.act_window">
         <field name="name">Orders Summary</field>
         <field name="type">ir.actions.act_window</field>
