@@ -34,32 +34,28 @@ class ChemicalComposition(models.Model):
         result = super(ChemicalComposition, self).create(vals)
         return result
 
-    @api.onchange('grade_id')
-    def _onchange_grade_id(self):
-        print('--------grade_id', self._context)
-        if self.env.context.get('onchange_heat_id',False):
-            return
+    def update_composition_lines(self):
         for c in self:
-            data = []
-            grade_id = c.grade_id
             c.line_ids.unlink() # Once executed change is grade_id is resetted. Hence we are saving the grade in previous line
-            for i in grade_id.line_ids:
-                data.append((0,0,{'element_id':i.element_id,'min_val':i.min_val,'max_val':i.max_val}))
-            c.line_ids = data
-            c.grade_id = grade_id
+            lines = [(5, 0, 0)]
+            for i in c.grade_id.line_ids:
+                line_values =  {'element_id': i.element_id.id, 'min_val': i.min_val, 'max_val': i.max_val}
+                lines.append((0, 0, line_values))
+            c.line_ids = lines
+        return
 
     @api.onchange('heat_id')
     def _onchange_heat_id(self):
         for c in self:
-            data = []
+            lines = [(5, 0, 0)]
             heat_id = c.heat_id
-            c.line_ids.unlink()
             for i in heat_id.line_ids:
-                data.append((0,0,{'element_id':i.element_id,'min_val':i.min_val,'max_val':i.max_val,'furnace_val':i.furnace_val,'actual_val':i.actual_val}))
-            c.line_ids = data
-            c.grade_id = heat_id.grade_id
+                line_values = {'element_id':i.element_id.id,'min_val':i.min_val,
+                               'max_val':i.max_val,'furnace_val':i.furnace_val,'actual_val':i.actual_val}
+                lines.append((0, 0, line_values))
+            c.line_ids = lines
             c.heat_no = heat_id.name
-            c.heat_id = heat_id
+
 
     @api.depends('line_ids','line_ids.element_id','line_ids.actual_val')
     def _compute_carbon_equivalence(self):
@@ -115,4 +111,7 @@ class ChemicalComposition(models.Model):
     remarks = fields.Text("Remarks")
     lateral_bend = fields.Float("Lateral Bend")
     length = fields.Char("Length")
+    gas_o2 = fields.Char("O₂ (ppm)")
+    gas_n2 = fields.Char("N₂ (ppm)")
+    gas_h2 = fields.Char("H₂ (ppm)")
 

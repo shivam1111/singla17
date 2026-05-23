@@ -39,7 +39,15 @@
                                 <field name = "route_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}" />
                             </group>
                             <group>
-                                <field name = "grade_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}" />
+                                <label for="grade_id" string="Grade"/>
+                                <div class="o_row">
+                                    <field name="grade_id" options="{'no_create': True}"/>
+                                    <button name="update_composition_lines"
+                                            type="object"
+                                            icon="fa-refresh"
+                                            title="Update Composition Lines"
+                                            class="btn-link text-primary p-0"/>
+                                </div>
                                 <field name = "date" />
                                 <field name = "truck_no" />
                                 <field name = "heat_no" />
@@ -83,6 +91,13 @@
                                 <field name = "nicrmo" />
                             </group>
 
+                        </page>
+                        <page string = "Gas Analysis">
+                            <group>
+                                <field name = "gas_o2"/>
+                                <field name = "gas_h2" />
+                                <field name = "gas_n2" />
+                            </group>
                         </page>
                         <page string = "Remarks" >
                             <field name = "remarks" placeholder="Remarks" nolabel = "1"/>
